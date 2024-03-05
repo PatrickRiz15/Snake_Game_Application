@@ -16,7 +16,7 @@ public abstract class Board extends JPanel implements ActionListener, KeyListene
     public static final int COLUMNS = 37;
     // controls how many coins appear on the board
     public static final int NUM_COINS = 1;
-    public static final int BODY_STARTER = 0;
+    public static final int BODY_STARTER = 100;
     public static final int BODY_AMOUNT_ADDED = 4 ;
     public static final int SCORE_FONT_SIZE = 25;
     public static final int FONT_SIZE = 30;

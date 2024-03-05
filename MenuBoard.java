@@ -86,18 +86,23 @@ public class MenuBoard extends Board {
         Rectangle rect2 = new Rectangle(TILE_SIZE * 3, TILE_SIZE * ((3 * ROWS / 4) - 1), TILE_SIZE * 6, TILE_SIZE);
         // determine the x coordinate for the text
         int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
-        int x2 = rect2.x + (rect2.width - metrics.stringWidth(text2)) / 2;
-        int x21 = rect2.x + (rect2.width - metrics.stringWidth(Integer.toString(BODY_STARTER))) / 2;
-        // determine the y coordinate for the text
+         // determine the y coordinate for the text
         // (note we add the ascent, as in java 2d 0 is top of the screen)
         int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
-        int y2 = rect2.y + ((rect2.height - metrics.getHeight()) / 2) + metrics.getAscent();
+        
         // draw the string
         g2d.drawString(text, x, y);
-        g2d.drawString(text2, x2, y2);
-        g2d.drawString(Integer.toString(BODY_STARTER), x21, y2 + (TILE_SIZE * 2));
+        
+        
         g2d.setColor(new Color(62, 172, 18));
         //g2d.drawRect(TILE_SIZE * 3, TILE_SIZE * ((3 * ROWS / 4) - 2), TILE_SIZE * 6, TILE_SIZE * 5);
-        g2d.drawRect(x21 - TILE_SIZE/4, y2 + TILE_SIZE/2, TILE_SIZE * 2, TILE_SIZE * 2);
+
+        int x2 = rect2.x + (rect2.width - metrics.stringWidth(text2)) / 2;
+        int x21 = x2 + metrics.stringWidth(text2) / 2 - TILE_SIZE - SCORE_FONT_SIZE/4;
+        int x22 = rect2.x + (rect2.width - metrics.stringWidth(Integer.toString(BODY_STARTER))) / 2;
+        int y2 = rect2.y + ((rect2.height - metrics.getHeight()) / 2) + metrics.getAscent();
+        g2d.drawString(text2, x2, y2);
+        g2d.drawRect(x21, y2 + TILE_SIZE/2, TILE_SIZE * 2 + SCORE_FONT_SIZE/2, TILE_SIZE * 2);
+        g2d.drawString(Integer.toString(BODY_STARTER), x22, y2 + (TILE_SIZE * 2));
     }
 }
