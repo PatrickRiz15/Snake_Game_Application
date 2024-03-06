@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Snake Game</name>
+	<name>java_2d_game-master</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -16,7 +16,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1709620850446</id>
+			<id>1709620850453</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
