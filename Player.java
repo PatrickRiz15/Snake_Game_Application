@@ -54,6 +54,7 @@ public class Player {
                 break;
             case 4:
                 g.setColor(new Color(255, 234, 0));
+                break;
             default:
                 g.setColor(new Color(17, 180, 6));
         }

@@ -23,7 +23,7 @@ public abstract class Board extends JPanel implements ActionListener, KeyListene
     public static int FONT_SIZE = (int)(1.5 * TILE_SIZE);
     public static int COLOR = 1;
     public static int COLOR_AMOUNT = 4;
-    public static final int ORANGE_OCCURANCE_PERCENTAGE = 40;
+    public static final int ORANGE_OCCURANCE_PERCENTAGE = 20;
     // suppress serialization warning
     private static final long serialVersionUID = 490905409104883233L;
 
