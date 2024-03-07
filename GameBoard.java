@@ -141,6 +141,14 @@ public class GameBoard extends Board {
             keyReceived = false;
             repaint();
         }else if(!didStart){
+            int f11 = e.getKeyCode();
+            if(f11 == KeyEvent.VK_F11){
+                App.switchFullscreen();
+                return;
+            }
+            key = e;
+            keyReceived = false;
+            didStart = true;
             // create starter parts of snake body if wanted
             for(int i = 0; i < BODY_STARTER; i++){
                 body.add((new Player((int) front.getPos().getX(), (int) front.getPos().getY())));
@@ -151,9 +159,7 @@ public class GameBoard extends Board {
             timer = new Timer(DELAY, this);
             set_timer();
             timer.start();
-            key = e;
-            keyReceived = false;
-            didStart = true;
+
         }
 
         if(keyReceived) {

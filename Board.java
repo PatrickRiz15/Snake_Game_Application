@@ -12,15 +12,15 @@ public abstract class Board extends JPanel implements ActionListener, KeyListene
     public static final int DELAY_DECREASER = 5;
     public static final int SCORE_PERCENTAGE = 5;
     // controls the size of the board
-    public static final int TILE_SIZE = 20;
+    public static int TILE_SIZE = 25;
     public static final int ROWS = 27;
     public static final int COLUMNS = 37;
     // controls how many coins appear on the board
     public static final int NUM_COINS = 1;
-    public static final int BODY_STARTER = 100;
+    public static int BODY_STARTER = 100;
     public static final int BODY_AMOUNT_ADDED = 4 ;
-    public static final int SCORE_FONT_SIZE = 25;
-    public static final int FONT_SIZE = 30;
+    public static int SCORE_FONT_SIZE = (int)(1.25 * TILE_SIZE);
+    public static int FONT_SIZE = (int)(1.5 * TILE_SIZE);
     public static final int ORANGE_OCCURANCE_PERCENTAGE = 40;
     // suppress serialization warning
     private static final long serialVersionUID = 490905409104883233L;

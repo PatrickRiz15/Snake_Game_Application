@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 
 public class MenuBoard extends Board {
 
-    private int selection = 1;
+    private int selection;
 
     public static int selectionAmount = 4;
     MenuBoard(){
@@ -16,10 +16,12 @@ public class MenuBoard extends Board {
         setBackground(new Color(0, 0, 0));
 
         // initialize the game state
-        //selection = new Player(0, 0);
+        selection = 1;
+
 
         timer = new Timer(MENU_DELAY, this);
-        System.out.println("hi");
+
+        repaint();
     }
 
 
@@ -27,7 +29,7 @@ public class MenuBoard extends Board {
     public void actionPerformed(ActionEvent e) {
         // calling repaint() will trigger paintComponent() to run again,
         // which will refresh/redraw the graphics.
-        repaint();
+        //repaint();
     }
 
     @Override
@@ -53,11 +55,23 @@ public class MenuBoard extends Board {
         } else if ((key == KeyEvent.VK_D) || (key == KeyEvent.VK_RIGHT)){
             if (selection < selectionAmount)
                 selection++;
-            System.out.println(selection);
         } else if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT){
             if (selection > 1)
                 selection--;
-            System.out.println(selection);
+        } else if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP){
+            switch (selection){
+                case 1:
+                    BODY_STARTER++;
+                    break;
+            }
+        } else if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN){
+            switch (selection){
+                case 1:
+                    BODY_STARTER = BODY_STARTER > 0 ? BODY_STARTER - 1 : BODY_STARTER;
+                    break;
+            }
+        } else if (key == KeyEvent.VK_F11){
+            App.switchFullscreen();
         }
 
         repaint();
@@ -92,31 +106,31 @@ public class MenuBoard extends Board {
         // the text will be contained within this rectangle.
         // here I've sized it to be the entire bottom row of board tiles
         Rectangle rect = new Rectangle(0, TILE_SIZE * (ROWS / 2), TILE_SIZE * COLUMNS, TILE_SIZE);
-        Rectangle rect2 = new Rectangle(TILE_SIZE * 3, TILE_SIZE * ((3 * ROWS / 4) - 1), TILE_SIZE * 6, TILE_SIZE);
-        // determine the x coordinate for the text
-        int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
-         // determine the y coordinate for the text
+        Rectangle rect2 = new Rectangle(TILE_SIZE * (ROWS/5), TILE_SIZE * (3 * ROWS / 4), TILE_SIZE, TILE_SIZE);
+        // determine the MenuTextX coordinate for the text
+        int MenuTextX = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+         // determine the MenuTextY coordinate for the text
         // (note we add the ascent, as in java 2d 0 is top of the screen)
-        int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+        int MenuTextY = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
         
         // draw the string
-        g2d.drawString(text, x, y);
+        g2d.drawString(text, MenuTextX, MenuTextY);
         
         
         g2d.setColor(new Color(62, 172, 18));
         //g2d.drawRect(TILE_SIZE * 3, TILE_SIZE * ((3 * ROWS / 4) - 2), TILE_SIZE * 6, TILE_SIZE * 5);
 
-        int x2 = rect2.x + (rect2.width - metrics.stringWidth(text2)) / 2;
-        int x21 = x2 + metrics.stringWidth(text2) / 2 - TILE_SIZE - SCORE_FONT_SIZE/4;
-        int x22 = rect2.x + (rect2.width - metrics.stringWidth(Integer.toString(BODY_STARTER))) / 2;
-        int y2 = rect2.y + ((rect2.height - metrics.getHeight()) / 2) + metrics.getAscent();
-        g2d.drawString(text2, x2, y2);
+        int BodyStarterTextX = rect2.x + (rect2.width - metrics.stringWidth(text2)) / 2;
+        int BodyStarterSelectionX = BodyStarterTextX + metrics.stringWidth(text2) / 2 - TILE_SIZE - SCORE_FONT_SIZE/4;
+        int BodyStarterAmountX = rect2.x + (rect2.width - metrics.stringWidth(Integer.toString(BODY_STARTER))) / 2;
+        int BodyStarterTextY = rect2.y + ((rect2.height - metrics.getHeight()) / 2) + metrics.getAscent();
+        g2d.drawString(text2, BodyStarterTextX, BodyStarterTextY);
         if(selection == 1){
-            g2d.drawRect(x21, y2 + TILE_SIZE/2, TILE_SIZE * 2 + SCORE_FONT_SIZE/2, TILE_SIZE * 2);
+            g2d.drawRect(BodyStarterSelectionX, BodyStarterTextY + TILE_SIZE/2, TILE_SIZE * 2 + SCORE_FONT_SIZE/2, TILE_SIZE * 2);
         }else if(selection == 2){
-            g2d.drawRect(x21 + TILE_SIZE * ROWS/4, y2 + TILE_SIZE/2, TILE_SIZE * 2 + SCORE_FONT_SIZE/2, TILE_SIZE * 2);
+            g2d.drawRect(BodyStarterSelectionX + TILE_SIZE * ROWS/4, BodyStarterTextY + TILE_SIZE/2, TILE_SIZE * 2 + SCORE_FONT_SIZE/2, TILE_SIZE * 2);
         }
 
-        g2d.drawString(Integer.toString(BODY_STARTER), x22, y2 + (TILE_SIZE * 2));
+        g2d.drawString(Integer.toString(BODY_STARTER), BodyStarterAmountX, BodyStarterTextY + (TILE_SIZE * 2));
     }
 }
