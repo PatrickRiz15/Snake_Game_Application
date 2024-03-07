@@ -7,7 +7,7 @@ public class MenuBoard extends Board {
 
     private int selection;
 
-    public static int selectionAmount = 4;
+    public static int selectionAmount = 3;
     MenuBoard(){
         // set the game board size
         setPreferredSize(new Dimension(TILE_SIZE * COLUMNS, TILE_SIZE * ROWS));
@@ -63,12 +63,16 @@ public class MenuBoard extends Board {
                 case 1:
                     BODY_STARTER++;
                     break;
+                case 2:
+                    COLOR = COLOR < COLOR_AMOUNT ? COLOR + 1 : COLOR;
             }
         } else if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN){
             switch (selection){
                 case 1:
                     BODY_STARTER = BODY_STARTER > 0 ? BODY_STARTER - 1 : BODY_STARTER;
                     break;
+                case 2:
+                    COLOR = COLOR > 1 ? COLOR - 1 : COLOR;
             }
         } else if (key == KeyEvent.VK_F11){
             App.switchFullscreen();
@@ -84,8 +88,25 @@ public class MenuBoard extends Board {
 
     private void drawMenu(Graphics g) {
         // set the text to be displayed
-        String text = "MENU";
-        String text2 = "Body Amount";
+        String MenuText = "MENU";
+        String starterBodyText = "Start Body Amount";
+        //  String starterBodyText = "|";
+        String colorText = "Color";
+        String color;
+        switch(COLOR){
+            case 2:
+                color = "Blue";
+                break;
+            case 3:
+                color = "Purple";
+                break;
+            case 4:
+                color = "Yellow";
+                break;
+            default:
+                color = "Green";
+        }
+
         // we need to cast the Graphics to Graphics2D to draw nicer text
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(
@@ -106,31 +127,41 @@ public class MenuBoard extends Board {
         // the text will be contained within this rectangle.
         // here I've sized it to be the entire bottom row of board tiles
         Rectangle rect = new Rectangle(0, TILE_SIZE * (ROWS / 2), TILE_SIZE * COLUMNS, TILE_SIZE);
-        Rectangle rect2 = new Rectangle(TILE_SIZE * (ROWS/5), TILE_SIZE * (3 * ROWS / 4), TILE_SIZE, TILE_SIZE);
+        Rectangle bodyStarterRect = new Rectangle(TILE_SIZE * (COLUMNS/(selectionAmount+1)), TILE_SIZE * (3 * ROWS / 4), TILE_SIZE, TILE_SIZE);
+        Rectangle colorRect = new Rectangle(TILE_SIZE * 2 * (COLUMNS/(selectionAmount+1)), TILE_SIZE * (3 * ROWS / 4), TILE_SIZE, TILE_SIZE);
         // determine the MenuTextX coordinate for the text
-        int MenuTextX = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+        int MenuTextX = rect.x + (rect.width - metrics.stringWidth(MenuText)) / 2;
          // determine the MenuTextY coordinate for the text
         // (note we add the ascent, as in java 2d 0 is top of the screen)
         int MenuTextY = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
         
         // draw the string
-        g2d.drawString(text, MenuTextX, MenuTextY);
+        g2d.drawString(MenuText, MenuTextX, MenuTextY);
         
         
         g2d.setColor(new Color(62, 172, 18));
         //g2d.drawRect(TILE_SIZE * 3, TILE_SIZE * ((3 * ROWS / 4) - 2), TILE_SIZE * 6, TILE_SIZE * 5);
 
-        int BodyStarterTextX = rect2.x + (rect2.width - metrics.stringWidth(text2)) / 2;
-        int BodyStarterSelectionX = BodyStarterTextX + metrics.stringWidth(text2) / 2 - TILE_SIZE - SCORE_FONT_SIZE/4;
-        int BodyStarterAmountX = rect2.x + (rect2.width - metrics.stringWidth(Integer.toString(BODY_STARTER))) / 2;
-        int BodyStarterTextY = rect2.y + ((rect2.height - metrics.getHeight()) / 2) + metrics.getAscent();
-        g2d.drawString(text2, BodyStarterTextX, BodyStarterTextY);
+        int BodyStarterTextX = bodyStarterRect.x + (bodyStarterRect.width - metrics.stringWidth(starterBodyText)) / 2;
+        int BodyStarterSelectionX = bodyStarterRect.x + (bodyStarterRect.width - metrics.stringWidth(Integer.toString(BODY_STARTER))) / 2 - FONT_SIZE/4;
+        int BodyStarterAmountX = bodyStarterRect.x + (bodyStarterRect.width - metrics.stringWidth(Integer.toString(BODY_STARTER))) / 2;
+        int SelectionTextY = bodyStarterRect.y + ((bodyStarterRect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+        int BodyStarterSelectionRectWidth = metrics.stringWidth(Integer.toString(BODY_STARTER)) + FONT_SIZE/2;
+
+        int ColorTextX = colorRect.x + (colorRect.width - metrics.stringWidth(colorText)) / 2;
+        int ColorSelectionX = colorRect.x + (colorRect.width - metrics.stringWidth(color)) / 2 - FONT_SIZE/4;
+        int ColorOptionX = colorRect.x + (colorRect.width - metrics.stringWidth(color)) / 2;
+        int ColorSelectionRectWidth = metrics.stringWidth(color) + FONT_SIZE/2;
+
+        g2d.drawString(starterBodyText, BodyStarterTextX, SelectionTextY);
+        g2d.drawString(Integer.toString(BODY_STARTER), BodyStarterAmountX, SelectionTextY + (TILE_SIZE * 2));
+        g2d.drawString(colorText, ColorTextX, SelectionTextY);
+        g2d.drawString(color, ColorOptionX, SelectionTextY + (TILE_SIZE * 2));
         if(selection == 1){
-            g2d.drawRect(BodyStarterSelectionX, BodyStarterTextY + TILE_SIZE/2, TILE_SIZE * 2 + SCORE_FONT_SIZE/2, TILE_SIZE * 2);
+            g2d.drawRect(BodyStarterSelectionX, SelectionTextY + TILE_SIZE/2, BodyStarterSelectionRectWidth, TILE_SIZE * 2);
         }else if(selection == 2){
-            g2d.drawRect(BodyStarterSelectionX + TILE_SIZE * ROWS/4, BodyStarterTextY + TILE_SIZE/2, TILE_SIZE * 2 + SCORE_FONT_SIZE/2, TILE_SIZE * 2);
+            g2d.drawRect(ColorSelectionX, SelectionTextY + TILE_SIZE/2, metrics.stringWidth(color) + SCORE_FONT_SIZE/2, TILE_SIZE * 2);
         }
 
-        g2d.drawString(Integer.toString(BODY_STARTER), BodyStarterAmountX, BodyStarterTextY + (TILE_SIZE * 2));
     }
 }

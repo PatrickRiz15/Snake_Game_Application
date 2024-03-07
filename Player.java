@@ -45,23 +45,35 @@ public class Player {
         // this is also where we translate board grid position into a canvas pixel
         // position by multiplying by the tile size.
         //g.drawImage(image, pos.x * Board.TILE_SIZE, pos.y * Board.TILE_SIZE, observer);
-        g.setColor(new Color(17, 180, 6));
+        switch(Board.COLOR){
+            case 2:
+                g.setColor(new Color(16, 61, 241));
+                break;
+            case 3:
+                g.setColor(new Color(140, 0, 255));
+                break;
+            case 4:
+                g.setColor(new Color(255, 234, 0));
+            default:
+                g.setColor(new Color(17, 180, 6));
+        }
+
         g.fillRect(pos.x * Board.TILE_SIZE, pos.y * Board.TILE_SIZE, Board.TILE_SIZE, Board.TILE_SIZE);
         g.setColor(new Color(0, 0, 0));
         g.drawRect(pos.x * Board.TILE_SIZE, pos.y * Board.TILE_SIZE, Board.TILE_SIZE, Board.TILE_SIZE);
     }
 
-    public void drawRec(Graphics g, ImageObserver observer) {
-        // with the Point class, note that pos.getX() returns a double, but
-        // pos.x reliably returns an int. https://stackoverflow.com/a/30220114/4655368
-        // this is also where we translate board grid position into a canvas pixel
-        // position by multiplying by the tile size.
-        //g.drawImage(image, pos.x * Board.TILE_SIZE, pos.y * Board.TILE_SIZE, observer);
-        g.setColor(new Color(17, 180, 6));
-        g.drawRect(pos.x * Board.TILE_SIZE, pos.y * Board.TILE_SIZE, Board.TILE_SIZE, Board.TILE_SIZE);
-        g.setColor(new Color(0, 0, 0));
-        g.drawRect(pos.x * Board.TILE_SIZE, pos.y * Board.TILE_SIZE, Board.TILE_SIZE, Board.TILE_SIZE);
-    }
+//    public void drawRec(Graphics g, ImageObserver observer) {
+//        // with the Point class, note that pos.getX() returns a double, but
+//        // pos.x reliably returns an int. https://stackoverflow.com/a/30220114/4655368
+//        // this is also where we translate board grid position into a canvas pixel
+//        // position by multiplying by the tile size.
+//        //g.drawImage(image, pos.x * Board.TILE_SIZE, pos.y * Board.TILE_SIZE, observer);
+//        g.setColor(new Color(17, 180, 6));
+//        g.drawRect(pos.x * Board.TILE_SIZE, pos.y * Board.TILE_SIZE, Board.TILE_SIZE, Board.TILE_SIZE);
+//        g.setColor(new Color(0, 0, 0));
+//        g.drawRect(pos.x * Board.TILE_SIZE, pos.y * Board.TILE_SIZE, Board.TILE_SIZE, Board.TILE_SIZE);
+//    }
 
     public void drawGray(Graphics g, ImageObserver observer) {
         // with the Point class, note that pos.getX() returns a double, but
