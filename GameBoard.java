@@ -141,7 +141,7 @@ public class GameBoard extends Board {
             keyReceived = false;
             repaint();
         }else if(!didStart){
-            // create parts of snake body if wanted
+            // create starter parts of snake body if wanted
             for(int i = 0; i < BODY_STARTER; i++){
                 body.add((new Player((int) front.getPos().getX(), (int) front.getPos().getY())));
             }
@@ -169,40 +169,24 @@ public class GameBoard extends Board {
         int key = e.getKeyCode();
         switch (key) {
             case KeyEvent.VK_UP:
-                if (DIRECTION != 3) {
-                    DIRECTION = 1;
-                }
-                break;
             case KeyEvent.VK_W:
                 if (DIRECTION != 3) {
                     DIRECTION = 1;
                 }
                 break;
             case KeyEvent.VK_RIGHT:
-                if (DIRECTION != 4) {
-                    DIRECTION = 2;
-                }
-                break;
             case KeyEvent.VK_D:
                 if (DIRECTION != 4) {
                     DIRECTION = 2;
                 }
                 break;
             case KeyEvent.VK_DOWN:
-                if (DIRECTION != 1) {
-                    DIRECTION = 3;
-                }
-                break;
             case KeyEvent.VK_S:
                 if (DIRECTION != 1) {
                     DIRECTION = 3;
                 }
                 break;
             case KeyEvent.VK_LEFT:
-                if (DIRECTION != 2) {
-                    DIRECTION = 4;
-                }
-                break;
             case KeyEvent.VK_A:
                 if (DIRECTION != 2) {
                     DIRECTION = 4;

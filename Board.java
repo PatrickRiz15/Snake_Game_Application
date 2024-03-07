@@ -5,6 +5,7 @@ public abstract class Board extends JPanel implements ActionListener, KeyListene
 
     // controls the delay between each tick in ms
     public static final int DELAY = 135;
+    public static final int MENU_DELAY = 70;
     //the fastest that the game speed will be
     public static final int SMALLEST_DELAY = 70;
     //how much the delay will be decreased at a time
