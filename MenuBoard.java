@@ -5,8 +5,7 @@ import java.awt.event.KeyEvent;
 
 public class MenuBoard extends Board {
 
-    private Player selection;
-
+    private int selection = 1;
 
     public static int selectionAmount = 4;
     MenuBoard(){
@@ -19,14 +18,13 @@ public class MenuBoard extends Board {
         // initialize the game state
         //selection = new Player(0, 0);
 
-        timer = new Timer(DELAY, this);
-
+        timer = new Timer(MENU_DELAY, this);
+        System.out.println("hi");
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
         // calling repaint() will trigger paintComponent() to run again,
         // which will refresh/redraw the graphics.
         repaint();
@@ -50,8 +48,19 @@ public class MenuBoard extends Board {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if(key == KeyEvent.VK_ENTER)
+        if(key == KeyEvent.VK_ENTER) {
             App.switchBoard();
+        } else if ((key == KeyEvent.VK_D) || (key == KeyEvent.VK_RIGHT)){
+            if (selection < selectionAmount)
+                selection++;
+            System.out.println(selection);
+        } else if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT){
+            if (selection > 1)
+                selection--;
+            System.out.println(selection);
+        }
+
+        repaint();
     }
 
     @Override
@@ -102,7 +111,12 @@ public class MenuBoard extends Board {
         int x22 = rect2.x + (rect2.width - metrics.stringWidth(Integer.toString(BODY_STARTER))) / 2;
         int y2 = rect2.y + ((rect2.height - metrics.getHeight()) / 2) + metrics.getAscent();
         g2d.drawString(text2, x2, y2);
-        g2d.drawRect(x21, y2 + TILE_SIZE/2, TILE_SIZE * 2 + SCORE_FONT_SIZE/2, TILE_SIZE * 2);
+        if(selection == 1){
+            g2d.drawRect(x21, y2 + TILE_SIZE/2, TILE_SIZE * 2 + SCORE_FONT_SIZE/2, TILE_SIZE * 2);
+        }else if(selection == 2){
+            g2d.drawRect(x21 + TILE_SIZE * ROWS/4, y2 + TILE_SIZE/2, TILE_SIZE * 2 + SCORE_FONT_SIZE/2, TILE_SIZE * 2);
+        }
+
         g2d.drawString(Integer.toString(BODY_STARTER), x22, y2 + (TILE_SIZE * 2));
     }
 }
