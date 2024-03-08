@@ -65,6 +65,10 @@ public class MenuBoard extends Board {
                     break;
                 case 2:
                     COLOR = COLOR < COLOR_AMOUNT ? COLOR + 1 : COLOR;
+                    break;
+                case 3:
+                    NUM_COINS++;
+                    break;
             }
         } else if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN){
             switch (selection){
@@ -73,6 +77,10 @@ public class MenuBoard extends Board {
                     break;
                 case 2:
                     COLOR = COLOR > 1 ? COLOR - 1 : COLOR;
+                    break;
+                case 3:
+                    NUM_COINS = NUM_COINS > 1 ? NUM_COINS - 1 : NUM_COINS;
+                    break;
             }
         } else if (key == KeyEvent.VK_F11){
             App.switchFullscreen();
@@ -90,6 +98,7 @@ public class MenuBoard extends Board {
         // set the text to be displayed
         String MenuText = "MENU";
         String starterBodyText = "Start Body Amount";
+        String numCoinsText = "Number of Coins";
         //  String starterBodyText = "|";
         String colorText = "Color";
         String color;
@@ -129,6 +138,7 @@ public class MenuBoard extends Board {
         Rectangle rect = new Rectangle(0, TILE_SIZE * (ROWS / 2), TILE_SIZE * COLUMNS, TILE_SIZE);
         Rectangle bodyStarterRect = new Rectangle(TILE_SIZE * (COLUMNS/(selectionAmount+1)), TILE_SIZE * (3 * ROWS / 4), TILE_SIZE, TILE_SIZE);
         Rectangle colorRect = new Rectangle(TILE_SIZE * 2 * (COLUMNS/(selectionAmount+1)), TILE_SIZE * (3 * ROWS / 4), TILE_SIZE, TILE_SIZE);
+        Rectangle coinRect = new Rectangle(TILE_SIZE * 3 * (COLUMNS/(selectionAmount+1)), TILE_SIZE * (3 * ROWS / 4), TILE_SIZE, TILE_SIZE);
         // determine the MenuTextX coordinate for the text
         int MenuTextX = rect.x + (rect.width - metrics.stringWidth(MenuText)) / 2;
          // determine the MenuTextY coordinate for the text
@@ -145,22 +155,33 @@ public class MenuBoard extends Board {
         int BodyStarterTextX = bodyStarterRect.x + (bodyStarterRect.width - metrics.stringWidth(starterBodyText)) / 2;
         int BodyStarterSelectionX = bodyStarterRect.x + (bodyStarterRect.width - metrics.stringWidth(Integer.toString(BODY_STARTER))) / 2 - FONT_SIZE/4;
         int BodyStarterAmountX = bodyStarterRect.x + (bodyStarterRect.width - metrics.stringWidth(Integer.toString(BODY_STARTER))) / 2;
-        int SelectionTextY = bodyStarterRect.y + ((bodyStarterRect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+        int TextY = bodyStarterRect.y + ((bodyStarterRect.height - metrics.getHeight()) / 2) + metrics.getAscent();
         int BodyStarterSelectionRectWidth = metrics.stringWidth(Integer.toString(BODY_STARTER)) + FONT_SIZE/2;
+        int SelectionY = bodyStarterRect.y + ((bodyStarterRect.height - metrics.getHeight()) / 2) + metrics.getAscent() + metrics.getHeight() / 2;
+        int SelectionRectHeight = metrics.getHeight();
 
         int ColorTextX = colorRect.x + (colorRect.width - metrics.stringWidth(colorText)) / 2;
         int ColorSelectionX = colorRect.x + (colorRect.width - metrics.stringWidth(color)) / 2 - FONT_SIZE/4;
         int ColorOptionX = colorRect.x + (colorRect.width - metrics.stringWidth(color)) / 2;
         int ColorSelectionRectWidth = metrics.stringWidth(color) + FONT_SIZE/2;
 
-        g2d.drawString(starterBodyText, BodyStarterTextX, SelectionTextY);
-        g2d.drawString(Integer.toString(BODY_STARTER), BodyStarterAmountX, SelectionTextY + (TILE_SIZE * 2));
-        g2d.drawString(colorText, ColorTextX, SelectionTextY);
-        g2d.drawString(color, ColorOptionX, SelectionTextY + (TILE_SIZE * 2));
+        int CoinsTextX = coinRect.x + (coinRect.width - metrics.stringWidth(numCoinsText)) / 2;
+        int CoinsSelectionX = coinRect.x + (coinRect.width - metrics.stringWidth(Integer.toString(NUM_COINS))) / 2 - FONT_SIZE/4;
+        int CoinsAmountX = coinRect.x + (coinRect.width - metrics.stringWidth(Integer.toString(NUM_COINS))) / 2;
+        int CoinsSelectionRectWidth = metrics.stringWidth(Integer.toString(NUM_COINS)) + FONT_SIZE/2;
+
+        g2d.drawString(starterBodyText, BodyStarterTextX, TextY);
+        g2d.drawString(Integer.toString(BODY_STARTER), BodyStarterAmountX, TextY + (TILE_SIZE * 2));
+        g2d.drawString(colorText, ColorTextX, TextY);
+        g2d.drawString(color, ColorOptionX, TextY + (TILE_SIZE * 2));
+        g2d.drawString(numCoinsText, CoinsTextX, TextY);
+        g2d.drawString(Integer.toString(NUM_COINS), CoinsAmountX, TextY + (TILE_SIZE * 2));
         if(selection == 1){
-            g2d.drawRect(BodyStarterSelectionX, SelectionTextY + TILE_SIZE/2, BodyStarterSelectionRectWidth, TILE_SIZE * 2);
+            g2d.drawRect(BodyStarterSelectionX, SelectionY, BodyStarterSelectionRectWidth, SelectionRectHeight);
         }else if(selection == 2){
-            g2d.drawRect(ColorSelectionX, SelectionTextY + TILE_SIZE/2, metrics.stringWidth(color) + SCORE_FONT_SIZE/2, TILE_SIZE * 2);
+            g2d.drawRect(ColorSelectionX, SelectionY, ColorSelectionRectWidth, SelectionRectHeight);
+        }else if(selection == 3){
+            g2d.drawRect(CoinsSelectionX, SelectionY, CoinsSelectionRectWidth, SelectionRectHeight);
         }
 
     }
